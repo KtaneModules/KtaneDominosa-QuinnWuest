@@ -30,8 +30,8 @@ public class DominosaScript : MonoBehaviour
 
     private readonly int[] _gridValues = new int[56];
     private int? _prevDomino;
-    private readonly List<int[]> _selectedDominoes = new List<int[]>();
-    private readonly List<int[]> _selectedDominoValues = new List<int[]>();
+    private List<int[]> _selectedDominoes = new List<int[]>();
+    private List<int[]> _selectedDominoValues = new List<int[]>();
     private List<Color>[] _dominoColors = new List<Color>[28];
     private Color[] _dominoGuideColors = new Color[28];
     private Coroutine[] _cycleDominoColors = new Coroutine[28];
@@ -400,7 +400,7 @@ public class DominosaScript : MonoBehaviour
 
     private void CheckForSolve()
     {
-        if (_selectedDominoValues.Count != 28)
+        if (_selectedDominoValues.Count != 28 || _selectedDominoValues.Contains(null))
             return;
         var list = new List<string>();
         for (int i = 0; i < _selectedDominoValues.Count; i++)
@@ -429,13 +429,15 @@ public class DominosaScript : MonoBehaviour
             var guideIx = (13 * _selectedDominoValues[j].Min() - _selectedDominoValues[j].Min() * _selectedDominoValues[j].Min()) / 2 + _selectedDominoValues[j].Max();
             DominoObjs[_selectedDominoes[j][0]].GetComponent<MeshRenderer>().material.color = new Color32(255, 255, 255, 255);
             DominoObjs[_selectedDominoes[j][1]].GetComponent<MeshRenderer>().material.color = new Color32(255, 255, 255, 255);
+            _dominoColors[guideIx].RemoveAt(_dominoColors[guideIx].IndexOf(_dominoGuideColors[j]));
             _selectedDominoes[j] = null;
             _selectedDominoValues[j] = null;
-            _dominoColors[guideIx].RemoveAt(_dominoColors[guideIx].IndexOf(_dominoGuideColors[j]));
             if (_cycleDominoColors[guideIx] != null)
                 StopCoroutine(_cycleDominoColors[guideIx]);
             DominoGuides[guideIx].GetComponent<MeshRenderer>().material.color = new Color32(255, 255, 255, 255);
         }
+        _selectedDominoes = new List<int[]>();
+        _selectedDominoValues = new List<int[]>();
         for (int i = 0; i < 56; i++)
             DominoObjs[i].GetComponent<MeshRenderer>().material.color = new Color32(255, 255, 255, 255);
         return false;
