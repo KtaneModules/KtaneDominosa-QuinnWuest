@@ -14,12 +14,9 @@ MonoBehaviour:
   id: DominosaModule
   title: Dominosa
   author: Quinn Wuest
-  description: 'And to think your doing this just to get through a god damn door.
-
-
-    Manual and Idea by eXish.
-
-    Implemented by Quinn Wuest and Timwi.'
+  description: "And to think your doing this just to get through a god damn door.\n\nManual
+    and Idea by eXish.\nImplemented by Quinn Wuest and Timwi.\n\n[url=https://ktane.timwi.de/HTML/Dominosa.html]Manual
+    HTML[/url]\r\n[url=https://ktane.timwi.de/PDF/Dominosa.pdf]Manual PDF[/url]"
   version: 1.0
   outputFolder: build
   previewImage: {fileID: 2800000, guid: e299e104d9edbcc4da2caaee9172c4be, type: 3}
